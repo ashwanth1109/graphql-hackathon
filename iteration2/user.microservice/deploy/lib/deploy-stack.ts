@@ -40,15 +40,15 @@ export class DeployStack extends Stack {
       value: this.region,
     });
 
-    const usersLambda = new Function(this, "iter2-users-microservices-lambda", {
+    const usersLambda = new Function(this, "UsersMicroservicesLambda", {
       runtime: Runtime.NODEJS_12_X,
       handler: "main.handler",
-      code: Code.fromAsset("../lambda-fns"),
+      code: Code.fromAsset("../lambdas"),
       memorySize: 1024,
     });
 
     const lambdaDs = api.addLambdaDataSource(
-      "iter2-users-lambda-data-source",
+      "usersLambdaDataSource",
       usersLambda
     );
 
