@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "diff": "npm run build && cdk diff",
+    "deploy": "npm run build && cdk deploy"
   },
   "devDependencies": {
     "aws-cdk": "1.74.0",
@@ -21,6 +23,9 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "@aws-cdk/aws-appsync": "1.74.0",
+    "@aws-cdk/aws-dynamodb": "1.74.0",
+    "@aws-cdk/aws-lambda": "1.74.0",
     "@aws-cdk/core": "1.74.0"
   }
 }
