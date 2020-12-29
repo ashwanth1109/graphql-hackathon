@@ -15,7 +15,7 @@ export class DeployStack extends Stack {
     super(scope, id, props);
 
     const api = new GraphqlApi(this, "Api", {
-      name: "iter2-order-microservice-api",
+      name: "iter2-orders-microservice-api",
       schema: Schema.fromAsset("../Order.graphql"),
       authorizationConfig: {
         defaultAuthorization: {
@@ -40,19 +40,15 @@ export class DeployStack extends Stack {
       value: this.region,
     });
 
-    const ordersLambda = new Function(
-      this,
-      "iter2-order-microservices-lambda",
-      {
-        runtime: Runtime.NODEJS_12_X,
-        handler: "main.handler",
-        code: Code.fromAsset("../lambdas"),
-        memorySize: 1024,
-      }
-    );
+    const ordersLambda = new Function(this, "OrdersMicroservicesLambda", {
+      runtime: Runtime.NODEJS_12_X,
+      handler: "main.handler",
+      code: Code.fromAsset("../lambdas"),
+      memorySize: 1024,
+    });
 
     const lambdaDs = api.addLambdaDataSource(
-      "iter2-orders-lambda-data-source",
+      "ordersLambdaDataSource",
       ordersLambda
     );
 
