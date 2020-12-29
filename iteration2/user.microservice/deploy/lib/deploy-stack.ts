@@ -15,7 +15,7 @@ export class DeployStack extends Stack {
     super(scope, id, props);
 
     const api = new GraphqlApi(this, "Api", {
-      name: "iter2-user-microservice-api",
+      name: "iter2-users-microservice-api",
       schema: Schema.fromAsset("../User.graphql"),
       authorizationConfig: {
         defaultAuthorization: {
@@ -40,7 +40,7 @@ export class DeployStack extends Stack {
       value: this.region,
     });
 
-    const usersLambda = new Function(this, "iter2-user-microservices-lambda", {
+    const usersLambda = new Function(this, "iter2-users-microservices-lambda", {
       runtime: Runtime.NODEJS_12_X,
       handler: "main.handler",
       code: Code.fromAsset("../lambda-fns"),
