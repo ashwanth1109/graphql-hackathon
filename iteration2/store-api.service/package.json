@@ -1,0 +1,13 @@
+{
+  "name": "store-api.service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "npm run build && npm --prefix deploy run deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
