@@ -8,14 +8,14 @@ type PaginatedUsers {
     nextToken: String
 }
 
-type Query {
-    allUsers(count: Int, nextToken: String): PaginatedUsers!
-    listUsers: [User]
-}
-
 input AddUserInput {
     id: ID!
     name: String!
+}
+
+type Query {
+    allUsers(count: Int, nextToken: String): PaginatedUsers!
+    listUsers: [User]
 }
 
 type Mutation {
