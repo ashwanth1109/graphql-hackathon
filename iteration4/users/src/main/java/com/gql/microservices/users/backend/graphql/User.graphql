@@ -15,6 +15,7 @@ input AddUserInput {
 
 type Query {
     allUsers(count: Int, nextToken: String): PaginatedUsers!
+    getUser(id: ID): User
 }
 
 type Mutation {

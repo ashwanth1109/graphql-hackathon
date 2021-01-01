@@ -56,13 +56,10 @@ public class MicroServiceStack extends Stack {
         String tableName = withEnv("users-table");
         Attribute pk = Attribute.builder()
                 .name("id").type(AttributeType.STRING).build();
-        Attribute sk = Attribute.builder()
-                .name("name").type(AttributeType.STRING).build();
 
         TableProps tableProps = TableProps.builder()
                 .tableName(tableName)
                 .partitionKey(pk)
-                .sortKey(sk)
                 .billingMode(BillingMode.PAY_PER_REQUEST)
                 .build();
 
@@ -88,5 +85,14 @@ public class MicroServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addUser.res.vtl"))
                 .build();
         ddbDataSource.createResolver(addUser);
+
+        ResolverProps getUser = ResolverProps.builder()
+                .api(api)
+                .typeName("Query")
+                .fieldName("getUser")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getUser.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getUser.res.vtl"))
+                .build();
+        ddbDataSource.createResolver(getUser);
     }
 }
