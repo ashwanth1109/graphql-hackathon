@@ -79,5 +79,37 @@ public class ServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getUser.res.vtl"))
                 .build();
         usersDataSource.createResolver(getUser);
+
+        HttpDataSource ordersDataSource = api.addHttpDataSource(
+                "OrderMicroServiceApi",
+                "https://pdcqb75qyzamhjybo2n56js5ie.appsync-api.us-east-1.amazonaws.com/graphql"
+        );
+
+        ResolverProps allOrders = ResolverProps.builder()
+                .api(api)
+                .typeName("Query")
+                .fieldName("allOrders")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrders.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrders.res.vtl"))
+                .build();
+        ordersDataSource.createResolver(allOrders);
+
+        ResolverProps addOrder = ResolverProps.builder()
+                .api(api)
+                .typeName("Mutation")
+                .fieldName("addOrder")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addOrder.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addOrder.res.vtl"))
+                .build();
+        ordersDataSource.createResolver(addOrder);
+
+        ResolverProps getOrder = ResolverProps.builder()
+                .api(api)
+                .typeName("Query")
+                .fieldName("getOrder")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getOrder.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getOrder.res.vtl"))
+                .build();
+        ordersDataSource.createResolver(getOrder);
     }
 }

@@ -1,0 +1,21 @@
+#set($payload = "query GetOrder {
+    getOrder(id: ""$ctx.arguments.id"") {
+        id
+        product
+        quantity
+    }
+}")
+{
+    "version": "2018-05-29",
+    "method": "POST",
+    "resourcePath": "/graphql",
+    "params": {
+        "headers": {
+            "Content-Type": "application/json",
+            "X-Api-Key": "da2-fdqysmgwkzhclmm3srjw5lsnnu"
+        },
+        "body": {
+            "query": "$util.escapeJavaScript($payload)"
+        }
+    }
+}
