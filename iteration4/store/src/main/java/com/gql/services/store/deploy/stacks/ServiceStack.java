@@ -61,5 +61,14 @@ public class ServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allUsers.res.vtl"))
                 .build();
         usersDataSource.createResolver(allUsers);
+
+        ResolverProps addUser = ResolverProps.builder()
+                .api(api)
+                .typeName("Mutation")
+                .fieldName("addUser")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addUser.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addUser.res.vtl"))
+                .build();
+        usersDataSource.createResolver(addUser);
     }
 }
