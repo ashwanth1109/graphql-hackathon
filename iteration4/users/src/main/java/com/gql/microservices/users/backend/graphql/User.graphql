@@ -1,6 +1,6 @@
 type User {
     id: ID!
-    name: String!
+    name: String
 }
 
 type PaginatedUsers {
@@ -10,12 +10,11 @@ type PaginatedUsers {
 
 input AddUserInput {
     id: ID!
-    name: String!
+    name: String
 }
 
 type Query {
     allUsers(count: Int, nextToken: String): PaginatedUsers!
-    listUsers: [User]
 }
 
 type Mutation {
