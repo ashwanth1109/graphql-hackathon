@@ -1,0 +1,13 @@
+type User {
+    id: ID!
+    name: String!
+}
+
+type PaginatedUsers {
+    users: [User!]!
+    nextToken: String
+}
+
+type Query {
+    allUsers(count: Int, nextToken: String): PaginatedUsers!
+}

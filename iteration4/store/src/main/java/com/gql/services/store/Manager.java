@@ -8,7 +8,7 @@ public class Manager {
     private static String env;
 
     public static void main(String[] args) {
-        System.out.println("Running users microservices manager with args:\n" + Arrays.toString(args));
+        System.out.println("Running store services manager with args:\n" + Arrays.toString(args));
 
         if (args.length < 1) {
             throw new IllegalArgumentException("Arguments not passed correctly");

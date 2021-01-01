@@ -19,7 +19,7 @@ public class Runner {
      */
     public void synth() {
         App app = new App();
-        String rootStack = Manager.withEnv("users-micro-service-stack");
+        String rootStack = Manager.withEnv("store-service-stack");
         new ServiceStack(app, rootStack);
         CloudAssembly cs = app.synth();
         synthDirectory = cs.getDirectory();
