@@ -94,5 +94,14 @@ public class MicroServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getUser.res.vtl"))
                 .build();
         ddbDataSource.createResolver(getUser);
+
+        ResolverProps addOrderToUser = ResolverProps.builder()
+                .api(api)
+                .typeName("Mutation")
+                .fieldName("addOrderToUser")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addOrderToUser.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addOrderToUser.res.vtl"))
+                .build();
+        ddbDataSource.createResolver(addOrderToUser);
     }
 }
