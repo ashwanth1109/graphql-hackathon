@@ -1,0 +1,25 @@
+type Order {
+    id: ID!
+    product: String
+    quantity: Int
+}
+
+type PaginatedOrders {
+    orders: [Order]
+    nextToken: String
+}
+
+input AddOrderInput {
+    id: ID!
+    product: String
+    quantity: Int
+}
+
+type Query {
+    allOrders(count: Int, nextToken: String): PaginatedOrders
+    getOrder(id: ID): Order
+}
+
+type Mutation {
+    addOrder(order: AddOrderInput): Order!
+}
