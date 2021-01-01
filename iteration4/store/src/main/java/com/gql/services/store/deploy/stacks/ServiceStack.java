@@ -50,7 +50,7 @@ public class ServiceStack extends Stack {
 
         HttpDataSource usersDataSource = api.addHttpDataSource(
                 "UserMicroServiceApi",
-                "https://v5dksmu2y5dcpo2v5vr63bv7oi.appsync-api.us-east-1.amazonaws.com/graphql"
+                "https://ptt4cxj6arepjftfz6u4fwdlrq.appsync-api.us-east-1.amazonaws.com/graphql"
         );
 
         ResolverProps allUsers = ResolverProps.builder()
@@ -70,5 +70,14 @@ public class ServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.addUser.res.vtl"))
                 .build();
         usersDataSource.createResolver(addUser);
+
+        ResolverProps getUser = ResolverProps.builder()
+                .api(api)
+                .typeName("Query")
+                .fieldName("getUser")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getUser.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getUser.res.vtl"))
+                .build();
+        usersDataSource.createResolver(getUser);
     }
 }

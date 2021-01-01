@@ -1,10 +1,7 @@
-#set($payload = "query ListUsers {
-    allUsers {
-        users {
-            id
-            name
-        }
-        nextToken
+#set($payload = "query GetUser {
+    getUser(id: ""$ctx.arguments.id"") {
+        id
+        name
     }
 }")
 {
