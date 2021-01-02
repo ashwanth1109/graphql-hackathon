@@ -1,12 +1,10 @@
 package com.gql.microservices.orders.deploy.stacks;
 
+import com.gql.microservices.orders.deploy.utils.CFDetails;
 import software.amazon.awscdk.core.CfnOutput;
 import software.amazon.awscdk.core.CfnOutputProps;
 import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Duration;
-import software.amazon.awscdk.core.Expiration;
 import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.services.appsync.ApiKeyConfig;
 import software.amazon.awscdk.services.appsync.AuthorizationConfig;
 import software.amazon.awscdk.services.appsync.AuthorizationMode;
 import software.amazon.awscdk.services.appsync.AuthorizationType;
@@ -16,6 +14,8 @@ import software.amazon.awscdk.services.appsync.GraphqlApiProps;
 import software.amazon.awscdk.services.appsync.MappingTemplate;
 import software.amazon.awscdk.services.appsync.ResolverProps;
 import software.amazon.awscdk.services.appsync.Schema;
+import software.amazon.awscdk.services.appsync.UserPoolConfig;
+import software.amazon.awscdk.services.cognito.UserPool;
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
 import software.amazon.awscdk.services.dynamodb.BillingMode;
@@ -32,11 +32,16 @@ public class MicroServiceStack extends Stack {
         String gqlPath = "./src/main/java/com/gql/microservices/orders/backend/graphql/";
         String apiName = withEnv("orders-api");
         Schema schema = Schema.fromAsset(gqlPath + "Order.graphql");
+
         AuthorizationConfig authorizationConfig = AuthorizationConfig.builder()
                 .defaultAuthorization(AuthorizationMode.builder()
-                        .authorizationType(AuthorizationType.API_KEY)
-                        .apiKeyConfig(ApiKeyConfig.builder()
-                                .expires(Expiration.after(Duration.days(365)))
+                        .authorizationType(AuthorizationType.USER_POOL)
+                        .userPoolConfig(UserPoolConfig.builder()
+                                .userPool(UserPool.fromUserPoolArn(
+                                        this,
+                                        withEnv("orders-pool-config"),
+                                        CFDetails.getUserPoolArn(withEnv("store-service-stack"))
+                                ))
                                 .build())
                         .build())
                 .build();
@@ -51,9 +56,6 @@ public class MicroServiceStack extends Stack {
 
         new CfnOutput(this, "GraphQLAPIURL", CfnOutputProps.builder()
                 .value(api.getGraphqlUrl()).build());
-
-        new CfnOutput(this, "GraphQLAPIKey", CfnOutputProps.builder()
-                .value(api.getApiKey()).build());
 
         String tableName = withEnv("orders-table");
         Attribute pk = Attribute.builder()

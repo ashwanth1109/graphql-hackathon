@@ -11,7 +11,7 @@
     "params": {
         "headers": {
             "Content-Type": "application/json",
-            "X-Api-Key": "da2-7onhhg45tzaddofbbj6jl62nb4"
+            "authorization": "$context.request.headers.authorization",
         },
         "body": {
             "query": "$util.escapeJavaScript($payload)"

@@ -18,6 +18,8 @@ dependencies {
     // This dependency is used by the application.
     implementation(group = "software.amazon.awscdk", name = "core", version = cdkVersion)
     implementation(group = "software.amazon.awscdk", name = "appsync", version = cdkVersion)
+
+    implementation(group = "software.amazon.awssdk", name = "cloudformation", version = "2.15.33")
 }
 
 configure<JavaPluginConvention> {

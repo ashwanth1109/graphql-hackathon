@@ -1,8 +1,10 @@
 #set($payload = "mutation AddOrder {
    addOrder(order: {id: ""$ctx.arguments.order.id"",
+            userId: ""$ctx.arguments.order.userId"",
             product: ""$ctx.arguments.order.product"",
             quantity: ""$ctx.arguments.order.quantity"" }) {
      id
+     userId
      product
      quantity
    }
@@ -14,7 +16,7 @@
     "params": {
         "headers": {
             "Content-Type": "application/json",
-            "X-Api-Key": "da2-fdqysmgwkzhclmm3srjw5lsnnu"
+            "authorization": "$context.request.headers.authorization",
         },
         "body": {
             "query": "$util.escapeJavaScript($payload)"

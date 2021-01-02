@@ -1,5 +1,6 @@
 type Order {
     id: ID!
+    userId: String
     product: String
     quantity: Int
 }
@@ -26,6 +27,7 @@ input AddUserInput {
 
 input AddOrderInput {
     id: ID!
+    userId: String
     product: String
     quantity: Int
 }

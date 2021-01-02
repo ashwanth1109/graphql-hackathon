@@ -1,6 +1,7 @@
 #set($payload = "query GetOrder {
     getOrder(id: ""$ctx.arguments.id"") {
         id
+        userId
         product
         quantity
     }
@@ -12,7 +13,7 @@
     "params": {
         "headers": {
             "Content-Type": "application/json",
-            "X-Api-Key": "da2-fdqysmgwkzhclmm3srjw5lsnnu"
+            "authorization": "$context.request.headers.authorization",
         },
         "body": {
             "query": "$util.escapeJavaScript($payload)"

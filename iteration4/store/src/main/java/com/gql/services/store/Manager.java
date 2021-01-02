@@ -4,6 +4,8 @@ import com.gql.services.store.deploy.Runner;
 
 import java.util.Arrays;
 
+import static com.gql.services.store.deploy.utils.Constants.PROJECT_NAME;
+
 public class Manager {
     private static String env;
 
@@ -21,7 +23,6 @@ public class Manager {
     }
 
     public static String withEnv(String name) {
-        final String PROJECT_NAME = "gqlh";
         return String.format("%s-%s-%s", PROJECT_NAME, name, env);
     }
 }
