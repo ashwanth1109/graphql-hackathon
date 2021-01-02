@@ -19,6 +19,7 @@ import software.amazon.awscdk.services.appsync.Schema;
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
 import software.amazon.awscdk.services.dynamodb.BillingMode;
+import software.amazon.awscdk.services.dynamodb.GlobalSecondaryIndexProps;
 import software.amazon.awscdk.services.dynamodb.Table;
 import software.amazon.awscdk.services.dynamodb.TableProps;
 
@@ -66,7 +67,17 @@ public class MicroServiceStack extends Stack {
 
         Table table = new Table(this, tableName, tableProps);
 
+        Attribute gsi1 = Attribute.builder()
+                .name("userId").type(AttributeType.STRING).build();
+        GlobalSecondaryIndexProps gsiProps = GlobalSecondaryIndexProps.builder()
+                .indexName("user-index")
+                .partitionKey(gsi1)
+                .build();
+        table.addGlobalSecondaryIndex(gsiProps);
+
         DynamoDbDataSource ddbDataSource = api.addDynamoDbDataSource("ddbDataSource", table);
+
+        table.grantFullAccess(ddbDataSource);
 
         ResolverProps allOrders = ResolverProps.builder()
                 .api(api)
@@ -95,5 +106,14 @@ public class MicroServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getOrder.res.vtl"))
                 .build();
         ddbDataSource.createResolver(getOrder);
+
+        ResolverProps allOrdersByUser = ResolverProps.builder()
+                .api(api)
+                .typeName("Query")
+                .fieldName("allOrdersByUser")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersByUser.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersByUser.res.vtl"))
+                .build();
+        ddbDataSource.createResolver(allOrdersByUser);
     }
 }

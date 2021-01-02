@@ -5,6 +5,7 @@
         "id": $util.dynamodb.toDynamoDBJson($ctx.arguments.order.id)
     },
     "attributeValues": {
+        "user": $util.dynamodb.toDynamoDBJson($ctx.arguments.order.user),
         "product": $util.dynamodb.toDynamoDBJson($ctx.arguments.order.product),
         "quantity": $util.dynamodb.toDynamoDBJson($ctx.arguments.order.quantity)
     }
