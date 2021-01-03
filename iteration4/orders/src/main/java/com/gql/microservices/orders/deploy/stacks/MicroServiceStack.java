@@ -117,5 +117,14 @@ public class MicroServiceStack extends Stack {
                 .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersForUser.res.vtl"))
                 .build();
         ddbDataSource.createResolver(allOrdersForUser);
+
+        ResolverProps deleteOrder = ResolverProps.builder()
+                .api(api)
+                .typeName("Mutation")
+                .fieldName("deleteOrder")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.deleteOrder.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Mutation.deleteOrder.res.vtl"))
+                .build();
+        ddbDataSource.createResolver(deleteOrder);
     }
 }

@@ -25,4 +25,5 @@ type Query {
 
 type Mutation {
     addOrder(order: AddOrderInput): Order!
+    deleteOrder(id: ID): Boolean
 }
