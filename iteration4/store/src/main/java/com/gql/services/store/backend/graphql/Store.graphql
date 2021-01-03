@@ -37,6 +37,7 @@ type Query {
     getUser(id: ID): User
     allOrders(count: Int, nextToken: String): PaginatedOrders
     getOrder(id: ID): Order
+    allOrdersForUser(userId: String, count: Int, nextToken: String): PaginatedOrders
 }
 
 type Mutation {

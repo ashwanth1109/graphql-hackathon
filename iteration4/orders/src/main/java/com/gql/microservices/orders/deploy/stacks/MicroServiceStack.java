@@ -109,13 +109,13 @@ public class MicroServiceStack extends Stack {
                 .build();
         ddbDataSource.createResolver(getOrder);
 
-        ResolverProps allOrdersByUser = ResolverProps.builder()
+        ResolverProps allOrdersForUser = ResolverProps.builder()
                 .api(api)
                 .typeName("Query")
-                .fieldName("allOrdersByUser")
-                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersByUser.req.vtl"))
-                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersByUser.res.vtl"))
+                .fieldName("allOrdersForUser")
+                .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersForUser.req.vtl"))
+                .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersForUser.res.vtl"))
                 .build();
-        ddbDataSource.createResolver(allOrdersByUser);
+        ddbDataSource.createResolver(allOrdersForUser);
     }
 }

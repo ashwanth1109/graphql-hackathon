@@ -20,7 +20,7 @@ input AddOrderInput {
 type Query {
     allOrders(count: Int, nextToken: String): PaginatedOrders
     getOrder(id: ID): Order
-    allOrdersByUser(userId: String, count: Int, nextToken: String): PaginatedOrders
+    allOrdersForUser(userId: String, count: Int, nextToken: String): PaginatedOrders
 }
 
 type Mutation {

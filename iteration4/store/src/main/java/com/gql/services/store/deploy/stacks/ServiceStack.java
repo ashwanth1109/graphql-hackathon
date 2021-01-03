@@ -93,6 +93,15 @@ public class ServiceStack extends Stack {
                     .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.getOrder.res.vtl"))
                     .build();
             ordersDataSource.createResolver(getOrder);
+
+            ResolverProps allOrdersForUser = ResolverProps.builder()
+                    .api(api)
+                    .typeName("Query")
+                    .fieldName("allOrdersForUser")
+                    .requestMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersForUser.req.vtl"))
+                    .responseMappingTemplate(MappingTemplate.fromFile(gqlPath + "resolvers/Query.allOrdersForUser.res.vtl"))
+                    .build();
+            ordersDataSource.createResolver(allOrdersForUser);
         }
 
         if (!usersGqlUrl.isEmpty()) {

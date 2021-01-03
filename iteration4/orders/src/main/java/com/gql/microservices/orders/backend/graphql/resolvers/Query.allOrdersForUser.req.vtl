@@ -3,9 +3,9 @@
     "operation" : "Query",
     "index" : "user-index",
     "query" : {
-      "expression": "user = :user",
+      "expression": "userId = :userId",
         "expressionValues" : {
-          ":user" : $util.dynamodb.toDynamoDBJson($ctx.arguments.userId)
+          ":userId" : $util.dynamodb.toDynamoDBJson($ctx.arguments.userId)
         }
     }
     #if( ${ctx.arguments.count} )

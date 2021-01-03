@@ -1,13 +1,13 @@
-#set($payload = "mutation AddOrder {
-   addOrder(order: {id: ""$ctx.arguments.order.id"",
-            userId: ""$ctx.arguments.order.userId"",
-            product: ""$ctx.arguments.order.product"",
-            quantity: $ctx.arguments.order.quantity }) {
-     id
-     userId
-     product
-     quantity
-   }
+#set($payload = "query AllOrdersForUser {
+    allOrdersForUser(userId: ""$ctx.arguments.userId"") {
+        orders {
+            id
+            userId
+            product
+            quantity
+        }
+        nextToken
+    }
 }")
 {
     "version": "2018-05-29",
